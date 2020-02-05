@@ -7,6 +7,22 @@ class VlSearchPage extends Page {
         return new VlSearch(this.driver, selector);
     }
 
+    async getSearchInline() {
+        return this._getSearch('#search-inline');
+    }
+
+    async getSearchBlock() {
+        return this._getSearch('#search-block');
+    }
+
+    async getSearchBlockAlt() {
+        return this._getSearch('#search-block-alt');
+    }
+
+    async getSearchBlockMetCustomLabel() {
+        return this._getSearch('#search-block-custom-label');
+    }
+
     async load() {
         await super.load(Config.baseUrl + '/demo/vl-search.html');
     }
