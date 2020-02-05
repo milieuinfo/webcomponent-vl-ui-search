@@ -43,10 +43,11 @@ export class VlSearch extends VlElement(HTMLElement) {
     }
 
     connectedCallback() {
-        if (!this.__labelElement) {
-            this.setAttribute('block', ''); // standaard block indien niks gezet
+        if (!this.hasAttribute('inline') && !this.hasAttribute('block')) {
+            // default to block if none set
+            this.__toggleInlineBlock(false);
         }
-        this.__zoekKnopElement.onclick = this._submit.bind(this);
+        this.__zoekknopElement.onclick = this._submit.bind(this);
     }
 
     static get _observedAttributes() {
@@ -69,16 +70,36 @@ export class VlSearch extends VlElement(HTMLElement) {
         return this._element.querySelector('#search-label');
     }
 
-    get __zoekKnopElement() {
+    get __zoekknopElement() {
         return this._element.querySelector('#search-button');
     }
 
-    _blockChangedCallback() {
+    get __zoekveldElement() {
+        return this._element.querySelector('#search-input');
+    }
+
+    _blockChangedCallback(oldValue, newValue) {
+        this.__toggleInlineBlock(newValue == undefined);
         this.__zetLabelEnKnop();
     }
 
-    _inlineChangedCallback() {
+    _inlineChangedCallback(oldValue, newValue) {
+        this.__toggleInlineBlock(newValue != undefined);
         this.__zetLabelEnKnop();
+    }
+
+    __toggleInlineBlock(inline) {
+        if (inline) {
+            this.removeAttribute('block');
+            if (!this.hasAttribute('inline')) {
+                this.setAttribute('inline', '');
+            }
+        } else {
+            this.removeAttribute('inline');
+            if (!this.hasAttribute('block')) {
+                this.setAttribute('block', '');
+            }
+        }
     }
 
     _data_vl_labelChangedCallback() {
@@ -90,7 +111,7 @@ export class VlSearch extends VlElement(HTMLElement) {
     }
 
     get zoekterm() {
-        return this._element.querySelector('#search-input').value;
+        return this.__zoekveldElement.value;
     }
 
     _submit() {
