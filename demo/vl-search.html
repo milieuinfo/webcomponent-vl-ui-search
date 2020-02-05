@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="nl">
+	<head>
+    <title>vl-search voorbeeld</title>
+    <script type="module" src="demo.js"></script>
+    <script type="module" src="/src/vl-search.src.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/style.css"/>
+  </head>
+
+	<body>
+
+    <h1>vl-ui-button demo</h1>
+
+    <p>
+      <a href="https://overheid.vlaanderen.be/webuniversum/v3/documentation/components/vl-ui-search">
+          Meer voorbeelden en documentatie</a>.
+    </p>
+
+    <div>
+      <h2>Search inline</h2>
+      <pre>
+        <code class="line-numbers language-markup">
+            &#x3C;vl-search inline&#x3E;&#x3C;/vl-search&#x3E;
+        </code>
+      </pre>
+      <div class="demo">
+          <vl-search inline></vl-search>
+      </div>
+    </div>
+
+    <div>
+      <h2>Search block</h2>
+      <pre>
+        <code class="line-numbers language-markup">
+            &#x3C;vl-search block&#x3E;&#x3C;/vl-search&#x3E;
+        </code>
+      </pre>
+      <div class="demo">
+          <vl-search block></vl-search>
+      </div>
+    </div>
+
+    <div>
+      <h2>Search alt</h2>
+      <pre>
+        <code class="line-numbers language-markup">
+            &#x3C;vl-search block alt&#x3E;&#x3C;/vl-search&#x3E;
+        </code>
+      </pre>
+      <div class="demo">
+          <vl-search block alt></vl-search>
+      </div>
+    </div>
+
+    <div>
+      <h2>Search block met custom label</h2>
+      <pre>
+        <code class="line-numbers language-markup">
+            &#x3C;vl-search block data-vl-label=&#x22;Foo&#x22;&#x3E;&#x3C;/vl-search&#x3E;
+        </code>
+      </pre>
+      <div class="demo">
+          <vl-search block data-vl-label="Foo"></vl-search>
+      </div>
+    </div>
+
+    <script>
+      document.querySelectorAll('vl-search').forEach(
+          search => search.addEventListener('submit',
+              (event) => {
+                const zoekterm = document.createElement("p");
+                zoekterm.innerText = `Zoekterm: ${event.detail.zoekterm}`;
+                search.parentElement.appendChild(zoekterm);
+              }));
+    </script>
+
+  </body>
+
+</html>
