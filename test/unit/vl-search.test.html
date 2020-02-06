@@ -115,7 +115,7 @@
           }
       );
 
-      test('wanneer op enter wordt gedrukt wordt een submit event met zoekterm verstuurd',
+      test('wanneer op enter wordt gedrukt in de input wordt een submit event met zoekterm verstuurd',
           (done) => {
               const search = fixture('vl-search-block-fixture');
               search.addEventListener('submit',
@@ -124,7 +124,7 @@
                     done();
                   });
               search.__zoekveldElement.value = 'bar';
-              search.dispatchEvent(new KeyboardEvent('keydown', {key: 'Enter'}))
+              search.__zoekveldElement.dispatchEvent(new KeyboardEvent('keydown', {key: 'Enter'}))
           }
       );
 
