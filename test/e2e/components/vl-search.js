@@ -45,7 +45,8 @@ class VlSearch extends VlElement {
     }
 
     async setZoekterm(zoekterm) {
-        return (await this.getZoekveld()).sendKeys(zoekterm);
+        // (await this.getZoekveld()).sendKeys(zoekterm); --> not reachable by keyboard
+        await this.driver.executeScript(`arguments[0].setAttribute('value', '${zoekterm}')`, this.getZoekveld());
     }
 
     async getZoekterm() {
