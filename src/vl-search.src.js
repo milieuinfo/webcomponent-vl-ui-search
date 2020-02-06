@@ -128,7 +128,7 @@ export class VlSearch extends VlElement(HTMLElement) {
     }
 
     __registreerZoekBijEnter() {
-        this.addEventListener("keydown", event => {
+        this.__zoekveldElement.addEventListener("keydown", event => {
             if (event.key === 'Enter') {
                 this._submit();
             }
