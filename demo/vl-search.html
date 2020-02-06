@@ -70,6 +70,7 @@
           search => search.addEventListener('submit',
               (event) => {
                 const zoekterm = document.createElement("p");
+                zoekterm.setAttribute('name', 'zoekterm');
                 zoekterm.innerText = `Zoekterm: ${event.detail.zoekterm}`;
                 search.parentElement.appendChild(zoekterm);
               }));

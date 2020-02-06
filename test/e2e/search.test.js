@@ -36,15 +36,14 @@ describe('vl-search', async () => {
         await assert.eventually.isTrue(search.isAlt());
     });
 
-    // TODO
-    // it('Als ik zoekterm ingeef en zoek, krijg ik een event', async () => {
-    //     const search = await vlSearchPage.getSearchInline();
-    //     await assert.eventually.equal(search.getLabelTekst(), 'Zoekterm');
-    //     await search.setZoekterm("foobar");
-    //     await assert.eventually.equal(search.getZoekterm(), 'foobar');
-    //     await search.zoek();
-    // });
-
+    it('Als ik zoekterm ingeef en zoek, wordt de zoekterm op de demo pagina getoond', async () => {
+        const search = await vlSearchPage.getSearchInline();
+        await assert.eventually.equal(search.getLabelTekst(), 'Zoekterm');
+        await search.setZoekterm("foobar");
+        await assert.eventually.equal(search.getZoekterm(), 'foobar');
+        await search.zoek();
+        await assert.eventually.include(vlSearchPage.getZoektermen(), 'foobar');
+    });
 
     after(() => driver && driver.quit());
 });

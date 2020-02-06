@@ -49,7 +49,7 @@ class VlSearch extends VlElement {
     }
 
     async getZoekterm() {
-        return (await this.getZoekveld()).getText();
+        return (await this.getZoekveld()).getAttribute('value');
     }
 
     async zoek() {
