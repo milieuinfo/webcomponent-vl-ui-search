@@ -54,7 +54,7 @@
   "dependencies": {
     "vl-ui-core": "^4.0.0",
     "vl-ui-button": "^3.0.0",
-    "vl-ui-input-field": "^1.1.2"
+    "vl-ui-input-field": "^2.0.0"
   },
   "devDependencies": {
     "@govflanders/vl-ui-search": "3.9.1",
