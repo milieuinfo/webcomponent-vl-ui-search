@@ -26,7 +26,7 @@ export class VlSearch extends VlElement(HTMLElement) {
     constructor() {
         super(`
                 <style>
-                    @import '/node_modules/vl-ui-alert/style.css';              
+                    @import '/node_modules/vl-ui-search/style.css';              
                 </style>
                 <div id="search" class="vl-search">
                     <input is="vl-input-field" 
@@ -62,7 +62,7 @@ export class VlSearch extends VlElement(HTMLElement) {
     }
 
     get _stylePath() {
-        return '/node_modules/vl-ui-alert/style.css';
+        return '/node_modules/vl-ui-search/style.css';
     }
 
     get __labelElement() {
