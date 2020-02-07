@@ -31,8 +31,7 @@ export class VlSearch extends VlElement(HTMLElement) {
                 <div id="search" class="vl-search">
                     <input is="vl-input-field" 
                            class="vl-search__input" 
-                           type="search" 
-                           name="vl-search" 
+                           type="search"
                            id="search-input" 
                            value="" 
                            title="Zoekterm" 
