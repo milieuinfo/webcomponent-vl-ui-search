@@ -1,6 +1,6 @@
-import { VlElement, define } from '/node_modules/vl-ui-core/dist/vl-core.js';
-import { VlButton } from '/node_modules/vl-ui-button/dist/vl-button.js';
-import { VlInputField } from '/node_modules/vl-ui-input-field/dist/vl-input-field.js';
+import { VlElement, define } from 'vl-ui-core';
+import { VlButton } from 'vl-ui-button';
+import { VlInputField } from 'vl-ui-input-field';
 
 /**
  * VlSearch
@@ -26,7 +26,7 @@ export class VlSearch extends VlElement(HTMLElement) {
     constructor() {
         super(`
                 <style>
-                    @import '../style.css';              
+                    @import '/src/style.css';              
                 </style>
                 <div id="search" class="vl-search">
                     <input is="vl-input-field" 
@@ -59,10 +59,6 @@ export class VlSearch extends VlElement(HTMLElement) {
 
     get _classPrefix() {
         return 'vl-search--';
-    }
-
-    get _stylePath() {
-        return '../style.css';
     }
 
     get __labelElement() {
@@ -185,3 +181,4 @@ export class VlSearch extends VlElement(HTMLElement) {
 }
 
 define('vl-search', VlSearch);
+

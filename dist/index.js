@@ -1,3 +1,3 @@
 module.exports = { 
-    'VlSearch': require('../test/e2e/components/vl-search')
-}
+    VlSearch: require('../dist/vl-search.src').VlSearch
+};

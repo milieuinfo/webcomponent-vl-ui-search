@@ -1,0 +1,64 @@
+import { VlElement, define } from 'vl-ui-core';
+import { VlButton } from 'vl-ui-button';
+import { VlInputField } from 'vl-ui-input-field';
+
+/**
+ * VlSearch
+ * @class
+ * @classdesc Gebruik de vl-search component zodat een gebruiker zoekcriteria kan ingeven om specifieke content te vinden.
+ * 
+ * @extends VlElement
+ *
+ * @event submit - Zoeken werd getriggerd. Het event bevat de zoekterm als detail.
+ *
+ * @property {string} data-vl-label - Attribuut wordt gebruikt als label voor zoekcriteria. Standaard 'Zoekterm'.
+ * @property {boolean} block - Attribuut duidt aan dat een breed zoekveld met knop wordt getoond. (Dit is de standaardweergave.)
+ * @property {boolean} inline - Attribuut duidt aan dat een smal zoekveld met kleine knop wordt gebruikt.
+ * @property {boolean} alt - Attribuut bepaalt of de alternatieve weergave (witte achtergrond) wordt gebruikt. Niet van toepassing bij inline.
+ * 
+ * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-search/releases/latest|Release notes}
+ * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-search/issues|Issues}
+ * @see {@link https://webcomponenten.omgeving.vlaanderen.be/demo/vl-search.html|Demo}
+ * 
+ */
+export class VlSearch extends VlElement(HTMLElement) {
+  
+    constructor() {
+        super(`
+                <style>
+                    @import '/src/style.css';              
+                </style>
+                <div id="search" class="vl-search">
+                    <input is="vl-input-field" 
+                           class="vl-search__input" 
+                           type="search"
+                           id="search-input" 
+                           value="" 
+                           title="Zoekterm" 
+                           required />
+                </div>
+            `);
+        this.__registreerZoekBijEnter();
+    }
+
+    connectedCallback() {
+        if (!this.hasAttribute('inline') && !this.hasAttribute('block')) {
+            // default to block if none set
+            this.__toggleInlineBlock(false);
+        }
+        this.__zoekknopElement.onclick = this._submit.bind(this);
+    }
+
+    static get _observedAttributes() {
+        return ['data-vl-label'];
+    }
+
+    static get _observedChildClassAttributes() {
+        return ['block', 'inline', 'alt'];
+    }
+
+    get _classPrefix() {
+        return 'vl-search--';
+    }
+
+    get _stylePath() {
