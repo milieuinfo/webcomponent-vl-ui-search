@@ -25,39 +25,25 @@
     "test:e2e:grid": "npm run test:server:start && npm run test:e2e:chrome:grid && npm run test:e2e:firefox:grid",
     "test:grid": "wct --config-file ./wct.docker.conf.json && npm run test:e2e:grid",
     "posttest:e2e": "pkill -f http-server",
-    "test:e2e:chrome": "mocha --chrome ",
-    "test:e2e:chrome:grid": "mocha  --chrome --grid",
+    "test:e2e:chrome": "mocha --chrome",
+    "test:e2e:chrome:grid": "mocha --chrome --grid",
     "test:e2e:firefox": "mocha --firefox",
     "test:e2e:firefox:grid": "mocha --firefox --grid",
     "test:e2e:opera": "mocha --opera",
     "test:e2e:safari": "mocha --safari",
     "test:server:start": "http-server &",
-    "release:prepare": "npm run release:prepare:build && npm run release:prepare:commit",
-    "release:prepare:build": "npm run release:prepare:build:es6 && npm run release:prepare:build:es6:min && npm run release:prepare:build:node",
-    "release:prepare:build:es6": "npm run release:prepare:build:es6:copy && npm run release:prepare:build:es6:replace",
-    "release:prepare:build:es6:copy": "cp -R -f ./src/*.src.js ./vl-search.js",
-    "release:prepare:build:es6:replace": "replace '\\.\\./style.css' '/node_modules/vl-ui-search/style.css' vl-search.js",
-    "release:prepare:build:es6:min": "npm run release:prepare:build:es6:min:copy && npm run release:prepare:build:es6:min:explode && npm run release:prepare:build:es6:min:minify",
-    "release:prepare:build:es6:min:copy": "cp -R -f ./src/*.src.js ./vl-search.tmp.min.js",
-    "release:prepare:build:es6:min:explode": "npm explore vl-ui-util -- npm run explode -- --fileName=vl-search.tmp.min.js",
-    "release:prepare:build:es6:min:minify": "minify ./vl-search.tmp.min.js > ./vl-search.min.js && rm -rf vl-search.tmp.min.js",
-    "release:prepare:build:node": "npm run release:prepare:build:node:copy && npm run release:prepare:build:node:replace && npm run release:prepare:build:node:explode",
-    "release:prepare:build:node:copy": "cp -R -f ./src/*.src.js .",
-    "release:prepare:build:node:replace": "npm run release:prepare:build:node:replace:src && npm run release:prepare:build:node:replace:dist",
-    "release:prepare:build:node:replace:src": "replace  '/node_modules/vl-ui-(.*)/vl-(.*).js' 'vl-ui-$2' vl-search.src.js",
-    "release:prepare:build:node:replace:dist": "replace  '/node_modules/(.*)/vl-(.*).js' 'vl-ui-$2.js' vl-search.src.js",
-    "release:prepare:build:node:explode": "npm explore vl-ui-util -- npm run explode -- --fileName=vl-search.src.js",
-    "release:prepare:commit": "git add -f . && git commit --amend --no-edit && git pull",
+    "release": "np",
+    "release:prepare": "npm explore vl-ui-util -- npm run release-component:prepare $(pwd) search",
     "release:testless": "np --yolo",
     "demo": "http-server"
   },
   "dependencies": {
-    "vl-ui-core": "^4.0.0",
-    "vl-ui-button": "^3.0.0",
-    "vl-ui-input-field": "^2.0.0"
+    "vl-ui-core": "^5.0.3",
+    "vl-ui-button": "^4.0.0",
+    "vl-ui-input-field": "^3.0.0"
   },
   "devDependencies": {
     "@govflanders/vl-ui-search": "3.9.1",
-    "vl-ui-util": "^4.0.1"
+    "vl-ui-util": "^5.0.7"
   }
 }

@@ -1,6 +1,6 @@
-import { VlElement, define } from '/node_modules/vl-ui-core/vl-core.js';
-import { VlButton } from '/node_modules/vl-ui-button/vl-button.js';
-import { VlInputField } from '/node_modules/vl-ui-input-field/vl-input-field.js';
+import { VlElement, define } from '/node_modules/vl-ui-core/dist/vl-core.js';
+import { VlButton } from '/node_modules/vl-ui-button/dist/vl-button.js';
+import { VlInputField } from '/node_modules/vl-ui-input-field/dist/vl-input-field.js';
 
 /**
  * VlSearch
