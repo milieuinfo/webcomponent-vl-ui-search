@@ -15,7 +15,13 @@
   "publishConfig": {
     "registry": "http://artifactory-pr-build.lb.cumuli.be:8081/artifactory/api/npm/acd-npm/"
   },
-  "main": "src/index.js",
+  "main": "./src/index.js",
+  "exports": {
+    "require": "./index.js",
+    "import": "./src/index.js",
+    "node": "./index.js",
+    "default": "./index.js"
+  },
   "scripts": {
     "prepare": "npm update --dev vl-ui-util && npm run prepare:util",
     "prepare:util": "npm explore vl-ui-util -- npm run util",
@@ -44,6 +50,6 @@
   },
   "devDependencies": {
     "@govflanders/vl-ui-search": "3.9.1",
-    "vl-ui-util": "^5.0.7"
+    "vl-ui-util": "^5.0.8"
   }
 }

@@ -45,5 +45,4 @@ describe('vl-search', async () => {
         await assert.eventually.include(vlSearchPage.getZoektermen(), 'foobar');
     });
 
-    // after(() => driver && driver.quit());
 });
