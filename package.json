@@ -48,6 +48,9 @@
     "vl-ui-button": "^4.0.0",
     "vl-ui-input-field": "^3.0.0"
   },
+  "peerDependencies": {
+    "vl-ui-core": "^5.0.3"
+  },
   "devDependencies": {
     "@govflanders/vl-ui-search": "3.9.1",
     "vl-ui-util": "^5.0.8"

@@ -26,7 +26,9 @@ export class VlSearch extends VlElement(HTMLElement) {
     constructor() {
         super(`
                 <style>
-                    @import '/src/style.css';              
+                    @import '/src/style.css';
+                    @import '/node_modules/vl-ui-button/dist/style.css';
+                    @import '/node_modules/vl-ui-input-field/dist/style.css';              
                 </style>
                 <div id="search" class="vl-search">
                     <input is="vl-input-field" 
