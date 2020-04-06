@@ -1,63 +1,72 @@
 const { VlElement } = require('vl-ui-core').Test;
 const { By } = require('vl-ui-core').Test.Setup;
+const { VlInputField } = require('vl-ui-input-field').Test;
 
 class VlSearch extends VlElement {
-
-    constructor(driver, selector) {
-        super(driver, selector);
-    }
-
-    async _getSearch() {
-        return this.shadowRoot;
-    }
-
-    async _hasClass(clazz) {
-        const classes =  await (await this._getSearch()).getAttribute('class');
-        return classes.split(' ').includes(clazz);
-    }
-
-    async getZoekknop() {
-        return (await this._getSearch()).findElement(By.css('#search-button'));
-    }
-
-    async getZoekveld() {
-        return (await this._getSearch()).findElement(By.css('#search-input'));
-    }
-
-    async getLabel() {
-        return (await this._getSearch()).findElement(By.css('#search-label'));
-    }
-
-    async getLabelTekst() {
-        return (await this.getLabel()).getText();
-    }
-
     async isBlock() {
-        return this._hasClass('vl-search--block');
+        return this.shadowRoot.hasClass('vl-search--block');
     }
 
     async isInline() {
-        return this._hasClass('vl-search--inline');
+        return this.shadowRoot.hasClass('vl-search--inline');
     }
 
     async isAlt() {
-        return this._hasClass('vl-search--alt');
+        return this.shadowRoot.hasClass('vl-search--alt');
     }
 
-    async setZoekterm(zoekterm) {
-        // (await this.getZoekveld()).sendKeys(zoekterm); --> not reachable by keyboard
-        await this.driver.executeScript(`arguments[0].setAttribute('value', '${zoekterm}')`, this.getZoekveld());
+    async getLabelText() {
+        const label = await this._labelElement();
+        const text = await label.getTextContent();
+        return text.trim();
     }
 
-    async getZoekterm() {
-        return (await this.getZoekveld()).getAttribute('value');
+    async getLabelSlotContent() {
+        const label = await this._labelElement();
+        const slot = await label.findElement(By.css('slot'));
+        return this.getAssignedElements(slot);
     }
 
-    async zoek() {
-        const zoekknop = await this.getZoekknop();
-        return zoekknop.click();
+    async getSubmitText() {
+        const button = await this._submitButton();
+        const text = await button.getTextContent();
+        return text.trim();
     }
 
+    async getSubmitSlotContent() {
+        const button = await this._submitButton();
+        const slot = await button.findElement(By.css('slot'));
+        return this.getAssignedElements(slot);
+    }
+
+    async getValue() {
+        const input = await this._inputElement();
+        return input.getValue();
+    }
+
+    async setValue(content) {
+        const input = await this._inputElement();
+        return input.setValue(content);
+    }
+
+    async submit() {
+        const button = await this._submitButton();
+        return button.click();
+    }
+
+    async _submitButton() {
+        return this.shadowRoot.findElement(By.css('#search-button'));
+    }
+
+    async _inputElement() {
+        const element = await this.shadowRoot.findElement(By.css('#search-input'));
+        return new VlInputField(this.driver, element);
+    }
+
+    async _labelElement() {
+        const element = await this.shadowRoot.findElement(By.css('#search-label'));
+        return new VlElement(this.driver, element);
+    }
 }
 
 module.exports = VlSearch;

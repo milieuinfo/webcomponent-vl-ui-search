@@ -8,41 +8,42 @@ describe('vl-search', async () => {
         return vlSearchPage.load();
     });
 
-    it('Als ik een inline search gebruik, zal deze niet block zijn', async () => {
-        const search = await vlSearchPage.getSearchInline();
-        await assert.eventually.isTrue(search.isInline());
-        await assert.eventually.isFalse(search.isBlock());
+    it('als gebruiker kan ik het verschil zien tussen een inline en een block search', async () => {
+        const inlineSearch = await vlSearchPage.getInlineSearch();
+        const blockSearch = await vlSearchPage.getBlockSearch();
+        await assert.eventually.isTrue(inlineSearch.isInline());
+        await assert.eventually.isFalse(inlineSearch.isBlock());
+        await assert.eventually.isFalse(blockSearch.isInline());
+        await assert.eventually.isTrue(blockSearch.isBlock());
     });
 
-    it('Als ik een block search gebruik, zal deze niet inline zijn', async () => {
-        const search = await vlSearchPage.getSearchBlock();
-        await assert.eventually.isTrue(search.isBlock());
-        await assert.eventually.isFalse(search.isInline());
+    it('als gebruiker kan ik het verschil zien tussen een alt en een gewone search', async () => {
+        const search = await vlSearchPage.getBlockSearch();
+        const altSearch = await vlSearchPage.getAltSearch();
+        await assert.eventually.isFalse(search.isAlt());
+        await assert.eventually.isTrue(altSearch.isAlt());
     });
 
-    it('Als ik een search gebruik zonder label wordt het default label gebruikt', async () => {
-        const search = await vlSearchPage.getSearchBlock();
-        await assert.eventually.equal(search.getLabelTekst(), 'Zoekterm');
+    it('als gebruiker kan ik de gepersonaliseerde labels zien', async () => {
+        const search = await vlSearchPage.getLabelSearch();
+        await assert.eventually.equal(search.getLabelText(), 'Foo');
+        await assert.eventually.equal(search.getSubmitText(), 'Bar');
     });
 
-    it('Als ik een search gebruik met custom label wordt dat label getoond', async () => {
-        const search = await vlSearchPage.getSearchBlockMetCustomLabel();
-        await assert.eventually.equal(search.getLabelTekst(), 'Foo');
+    it('als gebruiker kan ik de gepersonaliseerde labels zien ook als ze via slots zijn gedefinieerd', async () => {
+        const search = await vlSearchPage.getSlotLabelSearch();
+        const labelSlotContent = await search.getLabelSlotContent();
+        const submitSlotContent = await search.getSubmitSlotContent();
+        await assert.eventually.equal(labelSlotContent[0].getText(), 'Foo');
+        await assert.eventually.equal(submitSlotContent[0].getText(), 'Bar');
     });
 
-    it('Als ik een block alt search gebruik, heeft deze alternatieve stijl', async () => {
-        const search = await vlSearchPage.getSearchBlockAlt();
-        await assert.eventually.isTrue(search.isBlock());
-        await assert.eventually.isTrue(search.isAlt());
+    it('als gebruiker kan ik zoeken door op de submit knop te klikken', async () => {
+        const search = await vlSearchPage.getInlineSearch();
+        const value = 'foobar';
+        await search.setValue(value);
+        await assert.eventually.equal(search.getValue(), value);
+        await search.submit();
+        await assert.eventually.include(vlSearchPage.getSearchValues(), value);
     });
-
-    it('Als ik zoekterm ingeef en zoek, wordt de zoekterm op de demo pagina getoond', async () => {
-        const search = await vlSearchPage.getSearchInline();
-        await assert.eventually.equal(search.getLabelTekst(), 'Zoekterm');
-        await search.setZoekterm("foobar");
-        await assert.eventually.equal(search.getZoekterm(), 'foobar');
-        await search.zoek();
-        await assert.eventually.include(vlSearchPage.getZoektermen(), 'foobar');
-    });
-
 });

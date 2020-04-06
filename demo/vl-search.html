@@ -1,81 +1,98 @@
 <!DOCTYPE html>
 <html lang="nl">
-	<head>
-    <title>vl-search voorbeeld</title>
-    <script type="module" src="demo.js"></script>
-    <script type="module" src="/src/vl-search.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="/style.css"/>
-  </head>
+<head>
+  <title>vl-search voorbeeld</title>
+  <script type="module" src="demo.js"></script>
+  <script type="module" src="/src/vl-search.js"></script>
 
-	<body>
+  <link rel="stylesheet" type="text/css" href="/style.css" />
+</head>
 
-    <h1>vl-ui-search demo</h1>
+<body>
 
-    <p>
-      <a href="https://overheid.vlaanderen.be/webuniversum/v3/documentation/components/vl-ui-search">
-          Meer voorbeelden en documentatie</a>.
-    </p>
+  <h1>vl-ui-search demo</h1>
 
-    <div>
-      <h2>Search inline</h2>
-      <pre>
+  <p>
+    <a href="https://overheid.vlaanderen.be/webuniversum/v3/documentation/components/vl-ui-search">
+      Meer voorbeelden en documentatie</a>.
+  </p>
+
+  <div>
+    <h2>Search inline</h2>
+    <pre>
         <code class="line-numbers language-markup">
-            &#x3C;vl-search inline&#x3E;&#x3C;/vl-search&#x3E;
+          &lt;vl-search id="search-inline" data-vl-inline&gt;&lt;/vl-search&gt;
         </code>
       </pre>
-      <div class="demo">
-          <vl-search id="search-inline" inline></vl-search>
-      </div>
+    <div class="demo">
+      <vl-search id="search-inline" data-vl-inline></vl-search>
     </div>
+  </div>
 
-    <div>
-      <h2>Search block</h2>
-      <pre>
+  <div>
+    <h2>Search block</h2>
+    <pre>
         <code class="line-numbers language-markup">
-            &#x3C;vl-search block&#x3E;&#x3C;/vl-search&#x3E;
+          &lt;vl-search id="search-block" data-vl-block&gt;&lt;/vl-search&gt;
         </code>
       </pre>
-      <div class="demo">
-          <vl-search id="search-block" block></vl-search>
-      </div>
+    <div class="demo">
+      <vl-search id="search-block" data-vl-block></vl-search>
     </div>
+  </div>
 
-    <div>
-      <h2>Search alt</h2>
-      <pre>
+  <div>
+    <h2>Search alt</h2>
+    <pre>
         <code class="line-numbers language-markup">
-            &#x3C;vl-search block alt&#x3E;&#x3C;/vl-search&#x3E;
+          &lt;vl-search id="search-block-alt" data-vl-block data-vl-alt&gt;&lt;/vl-search&gt;
         </code>
       </pre>
-      <div class="demo">
-          <vl-search id="search-block-alt" block alt></vl-search>
-      </div>
+    <div class="demo">
+      <vl-search id="search-block-alt" data-vl-block data-vl-alt></vl-search>
     </div>
+  </div>
 
-    <div>
-      <h2>Search block met custom label</h2>
-      <pre>
+  <div>
+    <h2>Search block met custom labels</h2>
+    <pre>
         <code class="line-numbers language-markup">
-            &#x3C;vl-search block data-vl-label=&#x22;Foo&#x22;&#x3E;&#x3C;/vl-search&#x3E;
+          &lt;vl-search id="search-block-label" data-vl-block data-vl-label="Foo" data-vl-submit-label="Bar"&gt;&lt;/vl-search&gt;
         </code>
       </pre>
-      <div class="demo">
-          <vl-search id="search-block-custom-label" block data-vl-label="Foo"></vl-search>
-      </div>
+    <div class="demo">
+      <vl-search id="search-block-label" data-vl-block data-vl-label="Foo" data-vl-submit-label="Bar"></vl-search>
     </div>
+  </div>
 
-    <script>
-      document.querySelectorAll('vl-search').forEach(
-          search => search.addEventListener('submit',
-              (event) => {
-                const zoekterm = document.createElement("p");
-                zoekterm.setAttribute('name', 'zoekterm');
-                zoekterm.innerText = `Zoekterm: ${event.detail.zoekterm}`;
-                search.parentElement.appendChild(zoekterm);
-              }));
-    </script>
+  <div>
+    <h2>Search block met custom label slot</h2>
+    <pre>
+        <code class="line-numbers language-markup">
+          &lt;&lt;vl-search id="search-block-slot-label" data-vl-block&gt;
+            &lt;span slot="label"&gt;&lt;strong&gt;Foo&lt;/strong&gt;&lt;/span&gt;
+            &lt;span slot="submit-label"&gt;&lt;strong&gt;Bar&lt;/strong&gt;&lt;/span&gt;
+          &lt;/vl-search&gt;
+        </code>
+      </pre>
+    <div class="demo">
+      <vl-search id="search-block-slot-label" data-vl-block>
+        <span slot="label"><strong>Foo</strong></span>
+        <span slot="submit-label"><strong>Bar</strong></span>
+      </vl-search>
+    </div>
+  </div>
 
-  </body>
+  <script>
+    document.querySelectorAll('vl-search').forEach(
+      search => search.addEventListener('change', (event) => {
+        const zoekterm = document.createElement("p");
+        zoekterm.setAttribute('name', 'zoekterm');
+        zoekterm.innerText = `Zoekterm: ${event.srcElement.value}`;
+        search.parentElement.appendChild(zoekterm);
+      }));
+  </script>
+</body>
 
 </html>
