@@ -131,15 +131,15 @@
         assert.equal(search.__buttonElement.querySelector('slot').assignedElements()[0], search.querySelector('[slot="submit-label"]'));
       });
 
-      test('wanneer op de zoekknop wordt geklikt wordt een change event met zoekterm verstuurd', (done) => {
+      test('wanneer een input change event getriggerd wordt, zal een change event via het search element verstuurd worden worden', (done) => {
         const search = fixture('vl-search-fixture');
         const value = 'foo';
-        search.addEventListener('change', (event) => {
+        search.onchange = event => {
           assert.equal(event.srcElement.value, value);
           done();
-        });
+        };
         search.__inputElement.value = value;
-        search.__buttonElement.click();
+        search.__inputElement.dispatchEvent(new Event('change'));
       });
     });
   </script>
