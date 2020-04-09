@@ -46,7 +46,8 @@ class VlSearch extends VlElement {
 
     async setValue(content) {
         const input = await this._inputElement();
-        return input.setValue(content);
+        await input.click();
+        return this.sendKeys(content);
     }
 
     async submit() {
