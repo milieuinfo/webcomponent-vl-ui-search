@@ -11,7 +11,6 @@
 </head>
 
 <body>
-
   <test-fixture id="vl-search-fixture">
     <template>
       <vl-search></vl-search>
@@ -20,117 +19,129 @@
 
   <test-fixture id="vl-search-inline-fixture">
     <template>
-      <vl-search inline></vl-search>
+      <vl-search data-vl-inline></vl-search>
     </template>
   </test-fixture>
 
   <test-fixture id="vl-search-block-fixture">
     <template>
-      <vl-search block></vl-search>
+      <vl-search data-vl-block></vl-search>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="vl-search-slots-fixture">
+    <template>
+      <vl-search>
+        <span slot="label">foo</span>
+        <span slot="submit-label">bar</span>
+      </vl-search>
     </template>
   </test-fixture>
 
   <script>
     suite('<vl-search>', () => {
+      const should = chai.should();
 
-      test('standaard wordt block gebruikt indien inline of block niet expliciet gezet', () => {
+      test('standaard wordt block gebruikt indien het inline of block attribuut niet aanwezig is', () => {
         const search = fixture('vl-search-fixture');
-        assert.isTrue(search.hasAttribute('block'));
-        assert.isTrue(search._element.classList.contains('vl-search--block'));
-      });
-
-      test('wanneer het block attribuut wordt gebruikt, is de block class aanwezig', () => {
-        const search = fixture('vl-search-block-fixture');
-        assert.isTrue(search.hasAttribute('block'));
-        assert.isTrue(search._element.classList.contains('vl-search--block'));
-      });
-
-      test('wanneer het inline attribuut wordt gebruikt, is de inline class aanwezig', () => {
-        const search = fixture('vl-search-inline-fixture');
-        assert.isTrue(search.hasAttribute('inline'));
-        assert.isTrue(search._element.classList.contains('vl-search--inline'));
+        assert.isTrue(search.hasAttribute('data-vl-block'));
       });
 
       test('wanneer het inline attribuut wordt verwijderd, wordt block attribuut gezet', () => {
         const search = fixture('vl-search-inline-fixture');
-        search.removeAttribute('inline');
-        assert.isTrue(search.hasAttribute('block'));
-        assert.isTrue(search._element.classList.contains('vl-search--block'));
+        assert.isFalse(search.hasAttribute('data-vl-block'));
+        search.removeAttribute('data-vl-inline');
+        assert.isTrue(search.hasAttribute('data-vl-block'));
       });
 
-      test('wanneer het block attribuut wordt verwijderd, wordt het inline attribuut gezet', () => {
+      test('wanneer het block attribuut wordt verwijderd, wordt block attribuut gezet', () => {
         const search = fixture('vl-search-block-fixture');
-        search.removeAttribute('block');
-        assert.isTrue(search.hasAttribute('inline'));
-        assert.isTrue(search._element.classList.contains('vl-search--inline'));
+        assert.isFalse(search.hasAttribute('data-vl-inline'));
+        search.removeAttribute('data-vl-block');
+        assert.isTrue(search.hasAttribute('data-vl-inline'));
       });
 
-      test('wanneer het alt attribuut wordt gezet, is de alt class aanwezig', () => {
-        const search = fixture('vl-search-block-fixture');
-        assert.isFalse(search._element.classList.contains('vl-search--alt'));
-        search.setAttribute('alt', '');
-        assert.isTrue(search._element.classList.contains('vl-search--alt'));
-        search.removeAttribute('alt');
-        assert.isFalse(search._element.classList.contains('vl-search--alt'));
+      test('zal afhankelijk van de attributen de juiste classes toevoegen', () => {
+        ['data-vl-inline', 'data-vl-block', 'data-vl-alt'].forEach((attribute) => {
+          const search = fixture('vl-search-fixture');
+          const nakedAttribute = attribute.replace('data-vl-', '');
+          search.setAttribute(attribute, '');
+          assert.isTrue(search._element.classList.contains(`vl-search--${nakedAttribute}`));
+          search.removeAttribute(attribute);
+          assert.isFalse(search._element.classList.contains(`vl-search--${nakedAttribute}`));
+        });
       });
 
-      test('wanneer het label attribuut wordt gezet bij block display, verschijnt dit', () => {
+      test('bevat standaard een search container met een input veld', () => {
+        [fixture('vl-search-inline-fixture'), fixture('vl-search-block-fixture')].forEach(fixture => {
+          const container = fixture.shadowRoot.querySelector('.vl-search');
+          const input = container.querySelector('[is="vl-input-field"]');
+          should.exist(container);
+          should.exist(input);
+        });
+      });
+
+      test('toont een label wanneer het label attribuut aanwezig is in combinatie met block display', () => {
         const search = fixture('vl-search-block-fixture');
 
         assert.isFalse(search.hasAttribute('data-vl-label'));
-        assert.equal(search.__labelTekst(), 'Zoekterm');
-        assert.equal(search.__labelElement.innerText, 'Zoekterm');
-        assert.isNull(search.__labelElement.querySelector('span'));
+        assert.equal(search.__labelElement.innerText.trim(), 'Zoekterm');
+        should.not.exist(search.__labelElement.querySelector('span.vl-u-visually-hidden'));
+        should.not.exist(search.__labelElement.querySelector('span[is="vl-icon"]'));
 
-        search.setAttribute('data-vl-label', 'foo');
-        assert.equal(search.__labelTekst(), 'foo');
-        assert.equal(search.__labelElement.innerText, 'foo');
-        assert.isNull(search.__labelElement.querySelector('span'));
+        const text = 'foo'
+        search.setAttribute('data-vl-label', text);
+        assert.equal(search.__labelElement.innerText.trim(), text);
+        should.not.exist(search.__labelElement.querySelector('span.vl-u-visually-hidden'));
+        should.not.exist(search.__labelElement.querySelector('span[is="vl-icon"]'));
       });
 
-      test('wanneer het label attribuut wordt gezet bij inline display, wordt dit gezet', () => {
+      test('toont alleen een icoon wanneer het label attribuut aanwezig is in combinatie met inline display', () => {
         const search = fixture('vl-search-inline-fixture');
 
         assert.isFalse(search.hasAttribute('data-vl-label'));
-        assert.equal(search.__labelTekst(), 'Zoekterm');
-        assert.isEmpty(search.__labelElement.firstChild.textContent.trim());
-        assert.equal(search.__labelElement.querySelector('span').innerText, 'Zoekterm');
+        assert.equal(search.__labelElement.innerText.trim(), 'Zoekterm');
+        let span = search.__labelElement.querySelector('span.vl-u-visually-hidden');
+        let icon = search.__labelElement.querySelector('span[is="vl-icon"]');
+        should.exist(span);
+        should.exist(icon);
+        assert.equal(icon.getAttribute('data-vl-icon'), 'magnifier');
 
-        search.setAttribute('data-vl-label', 'bar');
-        assert.equal(search.__labelTekst(), 'bar');
-        assert.isEmpty(search.__labelElement.firstChild.textContent.trim());
-        assert.equal(search.__labelElement.querySelector('span').innerText, 'bar');
+        const text = 'bar';
+        search.setAttribute('data-vl-label', text);
+        assert.equal(search.__labelElement.innerText.trim(), text);
+        span = search.__labelElement.querySelector('span.vl-u-visually-hidden');
+        icon = search.__labelElement.querySelector('span[is="vl-icon"]');
+        should.exist(span);
+        should.exist(icon);
       });
 
-      test('wanneer op de zoekknop wordt geklikt wordt een submit event met zoekterm verstuurd',
-          (done) => {
-            const search = fixture('vl-search-block-fixture');
-            search.addEventListener('submit',
-                (event) => {
-                  assert.equal(event.detail.zoekterm, 'foo');
-                  done();
-                });
-            search.__zoekveldElement.value = 'foo';
-            search.__zoekknopElement.click();
-          }
-      );
+      test('toont een andere tekst bij de submit knop indien het submit label attribuut aanwezig is', () => {
+        const search = fixture('vl-search-block-fixture');
+        const text = 'foobar';
+        should.exist(search.__buttonElement);
+        assert.equal(search.__buttonElement.innerText, 'Zoeken');
+        search.setAttribute('data-vl-submit-label', text);
+        assert.equal(search.__buttonElement.innerText, text);
+      });
 
-      test('wanneer op enter wordt gedrukt in de input wordt een submit event met zoekterm verstuurd',
-          (done) => {
-              const search = fixture('vl-search-block-fixture');
-              search.addEventListener('submit',
-                  (event) => {
-                    assert.equal(event.detail.zoekterm, 'bar');
-                    done();
-                  });
-              search.__zoekveldElement.value = 'bar';
-              search.__zoekveldElement.dispatchEvent(new KeyboardEvent('keydown', {key: 'Enter'}))
-          }
-      );
+      test('toont de label slots indien deze aanwezig zijn', () => {
+        const search = fixture('vl-search-slots-fixture');
+        assert.equal(search.__labelElement.querySelector('slot').assignedElements()[0], search.querySelector('[slot="label"]'));
+        assert.equal(search.__buttonElement.querySelector('slot').assignedElements()[0], search.querySelector('[slot="submit-label"]'));
+      });
 
-
+      test('wanneer op de zoekknop wordt geklikt wordt een change event met zoekterm verstuurd', (done) => {
+        const search = fixture('vl-search-fixture');
+        const value = 'foo';
+        search.addEventListener('change', (event) => {
+          assert.equal(event.srcElement.value, value);
+          done();
+        });
+        search.__inputElement.value = value;
+        search.__buttonElement.click();
+      });
     });
-
   </script>
 </body>
 
