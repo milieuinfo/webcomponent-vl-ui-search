@@ -57,6 +57,6 @@
   },
   "devDependencies": {
     "@govflanders/vl-ui-search": "3.9.1",
-    "vl-ui-util": "5.0.10"
+    "vl-ui-util": "5.1.5"
   }
 }
