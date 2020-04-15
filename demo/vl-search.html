@@ -5,8 +5,10 @@
   <title>vl-search voorbeeld</title>
   <script type="module" src="demo.js"></script>
   <script type="module" src="/src/vl-search.js"></script>
+  <script type="module" src="/node_modules/vl-ui-select/dist/vl-select.js"></script>
 
   <link rel="stylesheet" type="text/css" href="/node_modules/vl-ui-core/dist/style.css" />
+  <link rel="stylesheet" type="text/css" href="/node_modules/vl-ui-select/dist/style.css" />
 </head>
 
 <body>
@@ -80,6 +82,22 @@
       <vl-search id="search-block-slot-label" data-vl-block>
         <span slot="label"><strong>Foo</strong></span>
         <span slot="submit-label"><strong>Bar</strong></span>
+      </vl-search>
+    </div>
+  </div>
+
+  <div>
+    <h2>Search met select</h2>
+    <pre>
+        <code class="line-numbers language-markup"></code>
+      </pre>
+    <div class="demo">
+      <vl-search id="search-block-slot-label" data-vl-block>
+        <select id="select-default" is="vl-select" slot="input" block>
+          <option value="Belgium">België</option>
+          <option value="Germany">Duitsland</option>
+          <option value="France">Frankrijk</option>
+        </select>
       </vl-search>
     </div>
   </div>

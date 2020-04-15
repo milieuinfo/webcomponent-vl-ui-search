@@ -41,9 +41,10 @@ export class VlSearch extends VlElement(HTMLElement) {
                 @import '/src/style.css';
                 @import '/node_modules/vl-ui-icon/dist/style.css';
                 @import '/node_modules/vl-ui-button/dist/style.css';
-                @import '/node_modules/vl-ui-input-field/dist/style.css';              
+                @import '/node_modules/vl-ui-input-field/dist/style.css'; 
             </style>
             <div class="vl-search">
+                <slot name="input"></slot>
                 <input is="vl-input-field" class="vl-search__input" type="search" id="search-input" value="" title="Zoekterm" required />
             </div>
         `);
@@ -53,6 +54,7 @@ export class VlSearch extends VlElement(HTMLElement) {
         if (!this._isInline && !this._isBlock) {
             this.setAttribute('data-vl-block', ''); // default to block if none set
         }
+        this.__processInputSlot();
         this.__setupChangeEventTriggers();
     }
 
@@ -163,6 +165,19 @@ export class VlSearch extends VlElement(HTMLElement) {
                 </slot>
             </button>
         `);
+    }
+
+    __processInputSlot() {
+        const slot = this.querySelector('[slot="input"]');
+        if (slot) {
+            setTimeout(() => {
+                console.log(this);
+            }, 1000);
+            slot.classList.add('vl-search__input');
+            this.__inputElement.type = 'hidden';
+        } else {
+            this._shadow.querySelector('slot[name="input"]').remove();
+        }
     }
 }
 
