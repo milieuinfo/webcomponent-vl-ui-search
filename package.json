@@ -58,6 +58,6 @@
   "devDependencies": {
     "@govflanders/vl-ui-search": "3.9.1",
     "vl-ui-util": "5.0.10",
-    "vl-ui-select": "^4.0.2"
+    "vl-ui-select": "milieuinfo/webcomponent-vl-ui-select#slot-attribute"
   }
 }
