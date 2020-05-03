@@ -57,6 +57,6 @@
   },
   "devDependencies": {
     "@govflanders/vl-ui-search": "3.9.1",
-    "vl-ui-util": "^5.1.6"
+    "vl-ui-util": "github:milieuinfo/webcomponent-vl-ui-util#deleted-demo-code"
   }
 }
