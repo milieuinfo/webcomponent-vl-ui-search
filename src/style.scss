@@ -17,3 +17,8 @@
 // Components
 // ==========================================================================
 @import "vl-ui-search/src/scss/search";
+
+slot {
+    @extend .vl-search__input;
+    display: block;
+}

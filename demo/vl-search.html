@@ -5,8 +5,10 @@
   <title>vl-search voorbeeld</title>
   <script type="module" src="demo.js"></script>
   <script type="module" src="/src/vl-search.js"></script>
+  <script type="module" src="/node_modules/vl-ui-select/dist/vl-select.js"></script>
 
   <link rel="stylesheet" type="text/css" href="/node_modules/vl-ui-core/dist/style.css" />
+  <link rel="stylesheet" type="text/css" href="/node_modules/vl-ui-select/dist/style.css" />
 </head>
 
 <body>
@@ -84,15 +86,39 @@
     </div>
   </div>
 
-  <script>
-    document.querySelectorAll('vl-search').forEach(
-      search => search.addEventListener('change', (event) => {
-        const zoekterm = document.createElement("p");
-        zoekterm.setAttribute('name', 'zoekterm');
-        zoekterm.innerText = `Zoekterm: ${event.srcElement.value}`;
-        search.parentElement.appendChild(zoekterm);
-      }));
-  </script>
+<div>
+  <h2>Search met select</h2>
+  <pre>
+      <code class="line-numbers language-markup">
+        &lt;vl-search id="search-block-slot-label" data-vl-block&gt;
+          &lt;select id="select-default" is="vl-select" slot="input" block data-vl-select&gt;
+            &lt;option value="Belgium"&gt;België&lt;/option&gt;
+            &lt;option value="Germany"&gt;Duitsland&lt;/option&gt;
+            &lt;option value="France"&gt;Frankrijk&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/vl-search&gt;
+    </code>
+    </pre>
+  <div class="demo">
+    <vl-search id="search-block-slot-label" data-vl-block>
+      <select id="select-default" is="vl-select" slot="input" block data-vl-select>
+        <option value="Belgium">België</option>
+        <option value="Germany">Duitsland</option>
+        <option value="France">Frankrijk</option>
+      </select>
+    </vl-search>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('vl-search').forEach(
+    search => search.addEventListener('change', (event) => {
+      const zoekterm = document.createElement("p");
+      zoekterm.setAttribute('name', 'zoekterm');
+      zoekterm.innerText = `Zoekterm: ${event.srcElement.value}`;
+      search.parentElement.appendChild(zoekterm);
+    }));
+</script>
 </body>
 
 </html>
