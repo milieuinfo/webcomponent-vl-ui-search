@@ -171,21 +171,9 @@
         should.not.exist(search.__inputSlotElement);
       });
 
-
       test('input-slot krijgt de juiste klasse', () => {
         const search = fixture('vl-search-met-input-slot-fixture');
         assert.isTrue(search.querySelector('[slot="input"]').classList.contains('vl-search__input'));
-      });
-
-      test('wanneer change event getriggerd wordt op een via een slot meegegeven input element, zal een change event via het search element verstuurd worden worden', (done) => {
-        const search = fixture('vl-search-met-input-slot-fixture');
-        const value = 'foo';
-        search.onchange = event => {
-          assert.equal(event.srcElement.value, value);
-          done();
-        };
-        search.__inputSlotElement.value = value;
-        search.__inputSlotElement.dispatchEvent(new Event('change'));
       });
     });
   </script>

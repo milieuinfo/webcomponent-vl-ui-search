@@ -64,12 +64,7 @@ export class VlSearch extends VlElement(HTMLElement) {
      * @return {String}
      */
     get value() {
-        if (this.__inputElement) {
-            return this.__inputElement.value;
-        }
-        else {
-            return this.__inputSlotElement.value;
-        }
+       return this.__inputElement.value;
     }
 
     get _isInline() {
@@ -121,12 +116,6 @@ export class VlSearch extends VlElement(HTMLElement) {
     __setupChangeEventTriggers() {
         if (this.__inputElement) {
             this.__inputElement.addEventListener('change', (event) => {
-                event.stopPropagation();
-                this._submit();
-            });
-        }
-        if (this.__inputSlotElement) {
-            this.__inputSlotElement.addEventListener('change', (event) => {
                 event.stopPropagation();
                 this._submit();
             });

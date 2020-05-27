@@ -1,6 +1,7 @@
 const { assert, driver } = require('vl-ui-core').Test.Setup;
 const VlSearchPage = require('./pages/vl-search.page');
 
+
 describe('vl-search', async () => {
     const vlSearchPage = new VlSearchPage(driver);
 
@@ -45,5 +46,13 @@ describe('vl-search', async () => {
         await assert.eventually.equal(search.getValue(), value);
         await search.submit();
         await assert.eventually.include(vlSearchPage.getSearchValues(), value);
+    });
+
+
+    it('als gebruiker kan ik iets selecteren uit een select die via een slot is meegegegeven', async() => {
+        const selectSearch = await vlSearchPage.getSlotInputSearch();
+        await selectSearch.search('Frankrijk');
+        await selectSearch.selectByIndex(0);
+        await assert.eventually.include(vlSearchPage.getSearchValues(), 'France');
     });
 });
