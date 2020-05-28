@@ -166,7 +166,7 @@
         assert.equal(search.__inputSlotElement.assignedElements()[0], search.querySelector('[slot="input"]'));
       });
 
-      test('wanneer geen input-slot aanwezig is, wordt het inputSlotElement verwijderd', () => {
+      test('wanneer een search zonder slot wordt aangemaakt, zal het slot element in de shadow dom verwijderd worden', () => {
         const search = fixture('vl-search-fixture');
         should.not.exist(search.__inputSlotElement);
       });
