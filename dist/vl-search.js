@@ -44,6 +44,7 @@ export class VlSearch extends VlElement(HTMLElement) {
                 @import '/node_modules/vl-ui-input-field/dist/style.css';              
             </style>
             <div class="vl-search">
+                <slot name="input"></slot>
                 <input is="vl-input-field" class="vl-search__input" type="search" id="search-input" value="" title="Zoekterm" required />
             </div>
         `);
@@ -53,6 +54,7 @@ export class VlSearch extends VlElement(HTMLElement) {
         if (!this._isInline && !this._isBlock) {
             this.setAttribute('data-vl-block', ''); // default to block if none set
         }
+        this.__processInputSlot();
         this.__setupChangeEventTriggers();
     }
 
@@ -62,7 +64,7 @@ export class VlSearch extends VlElement(HTMLElement) {
      * @return {String}
      */
     get value() {
-        return this.__inputElement.value;
+       return this.__inputElement.value;
     }
 
     get _isInline() {
@@ -89,6 +91,10 @@ export class VlSearch extends VlElement(HTMLElement) {
         return this._element.querySelector('#search-input');
     }
 
+    get __inputSlotElement() {
+        return this._element.querySelector('slot[name="input"]');
+    }
+
     _inlineChangedCallback(oldValue, newValue) {
         this.toggleAttribute('data-vl-block', newValue == undefined);
         this.__render();
@@ -108,10 +114,12 @@ export class VlSearch extends VlElement(HTMLElement) {
     }
 
     __setupChangeEventTriggers() {
-        this.__inputElement.addEventListener('change', (event) => {
-            event.stopPropagation();
-            this._submit();
-        });
+        if (this.__inputElement) {
+            this.__inputElement.addEventListener('change', (event) => {
+                event.stopPropagation();
+                this._submit();
+            });
+        }
     }
 
     _submit() {
@@ -163,6 +171,16 @@ export class VlSearch extends VlElement(HTMLElement) {
                 </slot>
             </button>
         `);
+    }
+
+    __processInputSlot() {
+        const slot = this.querySelector('[slot="input"]');
+        if (! slot) {
+            this._shadow.querySelector('slot[name="input"]').remove();
+        } else {
+            slot.classList.add('vl-search__input');
+            this.__inputElement.remove();
+        }
     }
 }
 
