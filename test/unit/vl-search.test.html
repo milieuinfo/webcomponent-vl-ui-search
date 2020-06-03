@@ -73,7 +73,7 @@
       });
 
       test('bevat standaard een search container met een input veld', () => {
-        [fixture('vl-search-inline-fixture'), fixture('vl-search-block-fixture')].forEach(fixture => {
+        [fixture('vl-search-inline-fixture'), fixture('vl-search-block-fixture')].forEach((fixture) => {
           const container = fixture.shadowRoot.querySelector('.vl-search');
           const input = container.querySelector('[is="vl-input-field"]');
           should.exist(container);
@@ -89,7 +89,7 @@
         should.not.exist(search.__labelElement.querySelector('span.vl-u-visually-hidden'));
         should.not.exist(search.__labelElement.querySelector('span[is="vl-icon"]'));
 
-        const text = 'foo'
+        const text = 'foo';
         search.setAttribute('data-vl-label', text);
         assert.equal(search.__labelElement.innerText.trim(), text);
         should.not.exist(search.__labelElement.querySelector('span.vl-u-visually-hidden'));
@@ -134,7 +134,7 @@
       test('wanneer een input change event getriggerd wordt, zal een change event via het search element verstuurd worden worden', (done) => {
         const search = fixture('vl-search-fixture');
         const value = 'foo';
-        search.onchange = event => {
+        search.onchange = (event) => {
           assert.equal(event.srcElement.value, value);
           done();
         };
