@@ -17,8 +17,7 @@ class VlSearch extends VlElement {
 
   async getLabelText() {
     const label = await this._labelElement();
-    const text = await label.getTextContent();
-    return text.trim();
+    return label.getText();
   }
 
   async getLabelSlotContent() {
@@ -29,8 +28,7 @@ class VlSearch extends VlElement {
 
   async getSubmitText() {
     const button = await this._submitButton();
-    const text = await button.getTextContent();
-    return text.trim();
+    return button.getText();
   }
 
   async getSubmitSlotContent() {

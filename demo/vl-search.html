@@ -39,11 +39,11 @@
 
     <script>
         document.querySelectorAll('vl-search').forEach(
-            search => search.addEventListener('change', (event) => {
-                const zoekterm = document.createElement("p");
-                zoekterm.setAttribute('name', 'zoekterm');
-                zoekterm.innerText = `Zoekterm: ${event.srcElement.value}`;
-                search.parentElement.appendChild(zoekterm);
+            (search) => search.addEventListener('change', (event) => {
+              const zoekterm = document.createElement('p');
+              zoekterm.setAttribute('name', 'zoekterm');
+              zoekterm.innerText = `Zoekterm: ${event.srcElement.value}`;
+              search.parentElement.appendChild(zoekterm);
             }));
     </script>
 </body>
