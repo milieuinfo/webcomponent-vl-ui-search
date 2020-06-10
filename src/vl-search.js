@@ -26,7 +26,7 @@ import '/node_modules/vl-ui-input-field/dist/vl-input-field.js';
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-search/issues|Issues}
  * @see {@link https://webcomponenten.omgeving.vlaanderen.be/demo/vl-search.html|Demo}
  */
-export class VlSearch extends VlElement(HTMLElement) {
+export class VlSearch extends vlElement(HTMLElement) {
   static get _observedAttributes() {
     return ['label', 'submit-label'];
   }
@@ -109,7 +109,7 @@ export class VlSearch extends VlElement(HTMLElement) {
     this.__renderLabel();
   }
 
-  _submit_labelChangedCallback() {
+  _submitLabelChangedCallback() {
     this.__renderButton();
   }
 
