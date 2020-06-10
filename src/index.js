@@ -1,3 +1,3 @@
-module.exports = { 
-    VlSearch: require('../dist/vl-search.src.js').VlSearch
+module.exports = {
+  VlSearch: require('../dist/vl-search.src.js').VlSearch,
 };
