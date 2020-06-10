@@ -1,7 +1,7 @@
-import {vlElement, define} from vl-ui-core;
-import vl-ui-icon;
-import vl-ui-button;
-import vl-ui-input-field;
+import {vlElement, define} from 'vl-ui-core';
+import 'vl-ui-icon';
+import 'vl-ui-button';
+import 'vl-ui-input-field';
 
 /**
  * Search change event analoog aan native change event.

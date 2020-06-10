@@ -38,7 +38,7 @@ export class VlSearch extends vlElement(HTMLElement) {
   constructor() {
     super(`
         <style>
-            @import /node_modules/vl-ui-search/dist/style.css;
+            @import '/node_modules/vl-ui-search/dist/style.css';
             @import '/node_modules/vl-ui-icon/dist/style.css';
             @import '/node_modules/vl-ui-button/dist/style.css';
             @import '/node_modules/vl-ui-input-field/dist/style.css';              
