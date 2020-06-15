@@ -36,17 +36,17 @@ export class VlSearch extends vlElement(HTMLElement) {
 
   constructor() {
     super(`
-            <style>
-                @import '/src/style.css';
-                @import '/node_modules/vl-ui-icon/dist/style.css';
-                @import '/node_modules/vl-ui-button/dist/style.css';
-                @import '/node_modules/vl-ui-input-field/dist/style.css';              
-            </style>
-            <div class="vl-search">
-                <slot name="input"></slot>
-                <input is="vl-input-field" class="vl-search__input" type="search" id="search-input" value="" title="Zoekterm" required />
-            </div>
-        `);
+      <style>
+        @import '/src/style.css';
+        @import '/node_modules/vl-ui-icon/dist/style.css';
+        @import '/node_modules/vl-ui-button/dist/style.css';
+        @import '/node_modules/vl-ui-input-field/dist/style.css';              
+      </style>
+      <div class="vl-search">
+        <slot name="input"></slot>
+        <input is="vl-input-field" class="vl-search__input" type="search" id="search-input" value="" title="Zoekterm" required />
+      </div>
+    `);
   }
 
   connectedCallback() {
@@ -58,10 +58,10 @@ export class VlSearch extends vlElement(HTMLElement) {
   }
 
   /**
-     * Geeft de zoekterm.
-     *
-     * @return {String}
-     */
+   * Geeft de zoekterm.
+   *
+   * @return {String}
+   */
   get value() {
     return this.__inputElement.value;
   }
@@ -152,24 +152,24 @@ export class VlSearch extends vlElement(HTMLElement) {
     const text = this.dataset.vlLabel || 'Zoekterm';
     const content = this._isInline ? `<span class="vl-u-visually-hidden">${text}</span> ${this.__iconTemplate()}` : text;
     return this._template(`
-            <label id="search-label" class="vl-search__label" for="search-input">
-                <slot name="label">
-                    ${content}
-                </slot>
-            </label>
-        `);
+      <label id="search-label" class="vl-search__label" for="search-input">
+        <slot name="label">
+          ${content}
+        </slot>
+      </label>
+    `);
   }
 
   __getButtonTemplate() {
     const content = this._isInline ? this.__iconTemplate() : ``;
     return this._template(`
-            <button is="vl-button" id="search-button" class="vl-search__submit" type="submit">
-                ${content}
-                <slot name="submit-label">
-                    ${this.dataset.vlSubmitLabel || 'Zoeken'}
-                </slot>
-            </button>
-        `);
+      <button is="vl-button" id="search-button" class="vl-search__submit" type="submit">
+        ${content}
+        <slot name="submit-label">
+          ${this.dataset.vlSubmitLabel || 'Zoeken'}
+        </slot>
+      </button>
+    `);
   }
 
   __processInputSlot() {
