@@ -14,7 +14,6 @@ import '/node_modules/vl-ui-input-field/dist/vl-input-field.js';
  * @classdesc Gebruik de vl-search component zodat een gebruiker zoekcriteria kan ingeven om specifieke content te vinden.
  *
  * @extends HTMLElement
- * @mixin vlElement
  *
  * @property {string} [data-vl-label='Zoekterm'] - Attribuut wordt gebruikt als label voor zoekcriteria.
  * @property {string} [data-vl-submit-label='Zoeken'] - Attribuut wordt gebruikt als label voor de submit knop.

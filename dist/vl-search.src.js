@@ -1,4 +1,4 @@
-import { VlElement, define } from 'vl-ui-core';
+import {vlElement, define} from 'vl-ui-core';
 import 'vl-ui-icon';
 import 'vl-ui-button';
 import 'vl-ui-input-field';
@@ -12,19 +12,18 @@ import 'vl-ui-input-field';
  * VlSearch
  * @class
  * @classdesc Gebruik de vl-search component zodat een gebruiker zoekcriteria kan ingeven om specifieke content te vinden.
- * 
- * @extends VlElement
  *
- * @property {string} ['Zoekterm'] data-vl-label - Attribuut wordt gebruikt als label voor zoekcriteria.
- * @property {string} ['Zoeken'] data-vl-submit-label - Attribuut wordt gebruikt als label voor de submit knop.
+ * @extends HTMLElement
+ *
+ * @property {string} [data-vl-label='Zoekterm'] - Attribuut wordt gebruikt als label voor zoekcriteria.
+ * @property {string} [data-vl-submit-label='Zoeken'] - Attribuut wordt gebruikt als label voor de submit knop.
  * @property {boolean} data-vl-block - Attribuut duidt aan dat een breed zoekveld met knop wordt getoond. Dit is de standaardweergave.
  * @property {boolean} data-vl-inline - Attribuut duidt aan dat een smal zoekveld met kleine knop wordt gebruikt.
  * @property {boolean} data-vl-alt - Attribuut bepaalt of de alternatieve weergave (witte achtergrond) wordt gebruikt. Alleen relevant in combinatie met data-vl-block.
- * 
+ *
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-search/releases/latest|Release notes}
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-search/issues|Issues}
  * @see {@link https://webcomponenten.omgeving.vlaanderen.be/demo/vl-search.html|Demo}
- * 
  */
 export class VlSearch extends VlElement(HTMLElement) {
     static get _observedAttributes() {
@@ -162,11 +161,11 @@ export class VlSearch extends VlElement(HTMLElement) {
                 </slot>
             </label>
         `);
-    }
+  }
 
-    __getButtonTemplate() {
-        const content = this._isInline ? this.__iconTemplate() : ``;
-        return this._template(`
+  __getButtonTemplate() {
+    const content = this._isInline ? this.__iconTemplate() : ``;
+    return this._template(`
             <button is="vl-button" id="search-button" class="vl-search__submit" type="submit">
                 ${content}
                 <slot name="submit-label">
