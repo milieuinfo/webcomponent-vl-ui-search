@@ -17,3 +17,29 @@
 // Components
 // ==========================================================================
 @import "vl-ui-search/src/scss/search";
+
+slot {
+    @extend .vl-search__input;
+    display: block;
+}
+
+:host([data-vl-inline]) {
+    slot[name="input"] {
+        border: 1px solid #cbd2da;
+
+        &:focus-within {
+            border: none;
+        }
+
+        &:focus-within + .vl-search__submit { 
+            transition: opacity .2s, transform .2s;
+            z-index: 1;
+            opacity: 1;
+            transform: translateX(0%);
+        }
+    }
+
+    ::slotted(.js-vl-select) {
+        background: white !important;
+    }
+}

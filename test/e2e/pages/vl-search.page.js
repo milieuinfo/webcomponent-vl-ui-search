@@ -23,6 +23,14 @@ class VlSearchPage extends Page {
     return this._getSearch('#search-block-slot-label');
   }
 
+  async getSlotInputSearch() {
+    const select = await this.driver.findElements(By.css('#search-block-slot-input select'));
+    if (select) {
+      const {VlSelect} = require('vl-ui-select').Test;
+      return new VlSelect(this.driver, '#search-block-slot-input select');
+    }
+  }
+
   async getSearchValues() {
     const elements = await this.driver.findElements(By.css('[name=zoekterm]'));
     const values = await Promise.all(elements.map((element) => element.getText()));

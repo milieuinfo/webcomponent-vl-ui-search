@@ -1,4 +1,5 @@
 import {vlElement, define} from '/node_modules/vl-ui-core/dist/vl-core.js';
+import {VlSelect} from '/node_modules/vl-ui-select/dist/vl-select.js';
 import '/node_modules/vl-ui-icon/dist/vl-icon.js';
 import '/node_modules/vl-ui-button/dist/vl-button.js';
 import '/node_modules/vl-ui-input-field/dist/vl-input-field.js';
@@ -36,15 +37,16 @@ export class VlSearch extends vlElement(HTMLElement) {
 
   constructor() {
     super(`
-        <style>
-            @import '/src/style.css';
-            @import '/node_modules/vl-ui-icon/dist/style.css';
-            @import '/node_modules/vl-ui-button/dist/style.css';
-            @import '/node_modules/vl-ui-input-field/dist/style.css';              
-        </style>
-        <div class="vl-search">
-            <input is="vl-input-field" class="vl-search__input" type="search" id="search-input" value="" title="Zoekterm" required />
-        </div>
+      <style>
+        @import '/src/style.css';
+        @import '/node_modules/vl-ui-icon/dist/style.css';
+        @import '/node_modules/vl-ui-button/dist/style.css';
+        @import '/node_modules/vl-ui-input-field/dist/style.css';
+      </style>
+      <div class="vl-search">
+        <slot name="input"></slot>
+        <input is="vl-input-field" class="vl-search__input" type="search" id="search-input" value="" title="Zoekterm" required />
+      </div>
     `);
   }
 
@@ -52,6 +54,7 @@ export class VlSearch extends vlElement(HTMLElement) {
     if (!this._isInline && !this._isBlock) {
       this.setAttribute('data-vl-block', ''); // default to block if none set
     }
+    this.__processInputSlot();
     this.__setupChangeEventTriggers();
   }
 
@@ -88,6 +91,10 @@ export class VlSearch extends vlElement(HTMLElement) {
     return this._element.querySelector('#search-input');
   }
 
+  get __inputSlotElement() {
+    return this._element.querySelector('slot[name="input"]');
+  }
+
   _inlineChangedCallback(oldValue, newValue) {
     this.toggleAttribute('data-vl-block', newValue == undefined);
     this.__render();
@@ -107,10 +114,12 @@ export class VlSearch extends vlElement(HTMLElement) {
   }
 
   __setupChangeEventTriggers() {
-    this.__inputElement.addEventListener('change', (event) => {
-      event.stopPropagation();
-      this._submit();
-    });
+    if (this.__inputElement) {
+      this.__inputElement.addEventListener('change', (event) => {
+        event.stopPropagation();
+        this._submit();
+      });
+    }
   }
 
   _submit() {
@@ -144,24 +153,38 @@ export class VlSearch extends vlElement(HTMLElement) {
     const text = this.dataset.vlLabel || 'Zoekterm';
     const content = this._isInline ? `<span class="vl-u-visually-hidden">${text}</span> ${this.__iconTemplate()}` : text;
     return this._template(`
-            <label id="search-label" class="vl-search__label" for="search-input">
-                <slot name="label">
-                    ${content}
-                </slot>
-            </label>
-        `);
+      <label id="search-label" class="vl-search__label" for="search-input">
+        <slot name="label">
+          ${content}
+        </slot>
+      </label>
+    `);
   }
 
   __getButtonTemplate() {
     const content = this._isInline ? this.__iconTemplate() : ``;
     return this._template(`
-            <button is="vl-button" id="search-button" class="vl-search__submit" type="submit">
-                ${content}
-                <slot name="submit-label">
-                    ${this.dataset.vlSubmitLabel || 'Zoeken'}
-                </slot>
-            </button>
-        `);
+      <button is="vl-button" id="search-button" class="vl-search__submit" type="submit">
+        ${content}
+        <slot name="submit-label">
+          ${this.dataset.vlSubmitLabel || 'Zoeken'}
+        </slot>
+      </button>
+    `);
+  }
+
+  __processInputSlot() {
+    const slot = this.querySelector('[slot="input"]');
+    if (!slot) {
+      this._shadow.querySelector('slot[name="input"]').remove();
+    } else {
+      if (slot instanceof VlSelect) {
+        slot.addEventListener(VlSelect.readyEvent, (event) => {
+          event.target._wrapperElement.classList.add('vl-search__input');
+        });
+      }
+      this.__inputElement.remove();
+    }
   }
 }
 

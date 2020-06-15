@@ -8,6 +8,7 @@
   <script src="../../../chai/chai.js"></script>
 
   <script type="module" src="../../src/vl-search.js"></script>
+  <script type="module" src="/node_modules/vl-ui-select/dist/vl-select.js"></script>
 </head>
 
 <body>
@@ -38,7 +39,20 @@
     </template>
   </test-fixture>
 
-  <script>
+  <test-fixture id="vl-search-met-input-slot-fixture">
+    <template>
+      <vl-search>
+        <select is="vl-select" data-vl-select slot="input">
+          <option value="foo">1</option>
+          <option value="bar">2</option>
+        </select>
+      </vl-search>
+    </template>
+  </test-fixture>
+
+  <script type="module">
+    import {VlSelect} from '/node_modules/vl-ui-select/dist/vl-select.js';
+
     suite('<vl-search>', () => {
       const should = chai.should();
 
@@ -140,6 +154,33 @@
         };
         search.__inputElement.value = value;
         search.__inputElement.dispatchEvent(new Event('change'));
+      });
+
+      test('wanneer een input-slot aanwezig is wordt het standaard input-field niet getoond', () => {
+        const search = fixture('vl-search-met-input-slot-fixture');
+        const container = search.shadowRoot.querySelector('.vl-search');
+        should.exist(container);
+        const input = container.querySelector('[is="vl-input-field"]');
+        should.not.exist(input);
+      });
+
+      test('wanneer een input-slot aanwezig is wordt de inhoud van dat slot getoond', () => {
+        const search = fixture('vl-search-met-input-slot-fixture');
+        assert.equal(search.__inputSlotElement.assignedElements()[0], search.querySelector('[slot="input"]'));
+      });
+
+      test('wanneer een search zonder slot wordt aangemaakt, zal het slot element in de shadow dom verwijderd worden', () => {
+        const search = fixture('vl-search-fixture');
+        should.not.exist(search.__inputSlotElement);
+      });
+
+      test('input-slot krijgt de juiste klasse', (done) => {
+        const search = fixture('vl-search-met-input-slot-fixture');
+        const slot = search.querySelector('[slot="input"]');
+        slot.addEventListener(VlSelect.readyEvent, () => {
+          assert.isTrue(search.querySelector('[slot="input"]').classList.contains('vl-search__input'));
+          done();
+        });
       });
     });
   </script>
