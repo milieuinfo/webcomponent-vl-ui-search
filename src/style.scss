@@ -43,3 +43,7 @@ slot {
         background: white !important;
     }
 }
+
+.vl-search {
+    width: var(--vl-search-width, 25rem);
+}
