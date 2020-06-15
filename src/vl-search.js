@@ -1,4 +1,5 @@
 import {vlElement, define} from '/node_modules/vl-ui-core/dist/vl-core.js';
+import {VlSelect} from '/node_modules/vl-ui-select/dist/vl-select.js';
 import '/node_modules/vl-ui-icon/dist/vl-icon.js';
 import '/node_modules/vl-ui-button/dist/vl-button.js';
 import '/node_modules/vl-ui-input-field/dist/vl-input-field.js';
@@ -40,7 +41,7 @@ export class VlSearch extends vlElement(HTMLElement) {
         @import '/src/style.css';
         @import '/node_modules/vl-ui-icon/dist/style.css';
         @import '/node_modules/vl-ui-button/dist/style.css';
-        @import '/node_modules/vl-ui-input-field/dist/style.css';              
+        @import '/node_modules/vl-ui-input-field/dist/style.css';
       </style>
       <div class="vl-search">
         <slot name="input"></slot>
@@ -174,10 +175,14 @@ export class VlSearch extends vlElement(HTMLElement) {
 
   __processInputSlot() {
     const slot = this.querySelector('[slot="input"]');
-    if (! slot) {
+    if (!slot) {
       this._shadow.querySelector('slot[name="input"]').remove();
     } else {
-      slot.classList.add('vl-search__input');
+      if (slot instanceof VlSelect) {
+        slot.addEventListener(VlSelect.readyEvent, (event) => {
+          event.target._wrapperElement.classList.add('vl-search__input');
+        });
+      }
       this.__inputElement.remove();
     }
   }

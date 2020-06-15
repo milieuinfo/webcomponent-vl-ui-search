@@ -8,8 +8,8 @@
   <script type="module" src="/src/vl-search.js"></script>
   <script type="module" src="/node_modules/vl-ui-select/dist/vl-select.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="/node_modules/vl-ui-core/dist/style.css" />
   <link rel="stylesheet" type="text/css" href="/node_modules/vl-ui-select/dist/style.css" />
+  <link rel="stylesheet" type="text/css" href="/node_modules/vl-ui-core/dist/style.css" />
 </head>
 
 <body>
@@ -35,6 +35,16 @@
       <vl-search id="search-block-slot-label" data-vl-block>
         <span slot="label"><strong>Foo</strong></span>
         <span slot="submit-label"><strong>Bar</strong></span>
+      </vl-search>
+    </vl-demo>
+    
+    <vl-demo data-vl-title="Search inline met select">
+      <vl-search id="search-inline-slot-input" data-vl-inline>
+        <select id="select-default" is="vl-select" slot="input" block data-vl-select>
+          <option value="Belgium">België</option>
+          <option value="Germany">Duitsland</option>
+          <option value="France">Frankrijk</option>
+        </select>
       </vl-search>
     </vl-demo>
     
