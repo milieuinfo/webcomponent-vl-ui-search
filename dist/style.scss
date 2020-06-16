@@ -24,6 +24,10 @@ slot {
 }
 
 :host([data-vl-inline]) {
+    .vl-search {
+        width: var(--vl-search-width, 25rem);
+    }
+    
     slot[name="input"] {
         border: 1px solid #cbd2da;
 
@@ -42,8 +46,4 @@ slot {
     ::slotted(.js-vl-select) {
         background: white !important;
     }
-}
-
-.vl-search {
-    width: var(--vl-search-width, 25rem);
 }
