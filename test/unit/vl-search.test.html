@@ -178,8 +178,10 @@
         const search = fixture('vl-search-met-input-slot-fixture');
         const slot = search.querySelector('[slot="input"]');
         slot.addEventListener(VlSelect.readyEvent, () => {
-          assert.isTrue(search.querySelector('[slot="input"]').classList.contains('vl-search__input'));
-          done();
+          customElements.whenDefined('vl-select').then(() => {
+            assert.isTrue(search.querySelector('[slot="input"]').classList.contains('vl-search__input'));
+            done();
+          });
         });
       });
     });
