@@ -33,6 +33,7 @@ slot {
         border: 1px solid #cbd2da;
 
         &:focus-within {
+            background: none;
             border: none;
         }
 
