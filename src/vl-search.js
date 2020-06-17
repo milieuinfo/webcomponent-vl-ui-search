@@ -190,7 +190,9 @@ export class VlSearch extends vlElement(HTMLElement) {
           event.target._wrapperElement.classList.add('vl-search__input');
         });
       }
-      this.__inputElement.remove();
+      if (this.__inputElement) {
+        this.__inputElement.remove();
+      }
     }
   }
 }
