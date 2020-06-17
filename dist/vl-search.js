@@ -185,11 +185,13 @@ export class VlSearch extends vlElement(HTMLElement) {
     if (!slot) {
       this._shadow.querySelector('slot[name="input"]').remove();
     } else {
-      if (slot instanceof VlSelect) {
-        slot.addEventListener(VlSelect.readyEvent, (event) => {
-          event.target._wrapperElement.classList.add('vl-search__input');
-        });
-      }
+      customElements.whenDefined('vl-select').then(() => {
+        if (slot instanceof VlSelect) {
+          slot.addEventListener(VlSelect.readyEvent, (event) => {
+            event.target._wrapperElement.classList.add('vl-search__input');
+          });
+        }
+      });
       if (this.__inputElement) {
         this.__inputElement.remove();
       }
