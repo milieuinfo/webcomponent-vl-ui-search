@@ -29,6 +29,7 @@ slot {
     }
     
     slot[name="input"] {
+        background: white;
         border: 1px solid #cbd2da;
 
         &:focus-within {
