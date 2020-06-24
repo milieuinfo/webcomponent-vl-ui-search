@@ -22,6 +22,13 @@ import '/node_modules/vl-ui-input-field/dist/vl-input-field.js';
  * @property {boolean} data-vl-inline - Attribuut duidt aan dat een smal zoekveld met kleine knop wordt gebruikt.
  * @property {boolean} data-vl-alt - Attribuut bepaalt of de alternatieve weergave (witte achtergrond) wordt gebruikt. Alleen relevant in combinatie met data-vl-block.
  *
+ * @example Breedte aanpassen:
+ * <style>
+    :root {
+      --vl-search-width: 50%;
+    }
+   </style>
+ *
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-search/releases/latest|Release notes}
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-search/issues|Issues}
  * @see {@link https://webcomponenten.omgeving.vlaanderen.be/demo/vl-search.html|Demo}
@@ -178,12 +185,16 @@ export class VlSearch extends vlElement(HTMLElement) {
     if (!slot) {
       this._shadow.querySelector('slot[name="input"]').remove();
     } else {
-      if (slot instanceof VlSelect) {
-        slot.addEventListener(VlSelect.readyEvent, (event) => {
-          event.target._wrapperElement.classList.add('vl-search__input');
-        });
+      customElements.whenDefined('vl-select').then(() => {
+        if (slot instanceof VlSelect) {
+          slot.addEventListener(VlSelect.readyEvent, (event) => {
+            event.target._wrapperElement.classList.add('vl-search__input');
+          });
+        }
+      });
+      if (this.__inputElement) {
+        this.__inputElement.remove();
       }
-      this.__inputElement.remove();
     }
   }
 }

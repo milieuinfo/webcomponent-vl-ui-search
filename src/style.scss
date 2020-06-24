@@ -24,10 +24,16 @@ slot {
 }
 
 :host([data-vl-inline]) {
+    .vl-search {
+        width: var(--vl-search-width, 25rem);
+    }
+    
     slot[name="input"] {
+        background: white;
         border: 1px solid #cbd2da;
 
         &:focus-within {
+            background: none;
             border: none;
         }
 
