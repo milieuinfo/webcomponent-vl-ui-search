@@ -53,6 +53,6 @@
   "devDependencies": {
     "@govflanders/vl-ui-search": "^3.11.5",
     "vl-ui-body": "^1.0.3",
-    "vl-ui-util": "^5.2.15"
+    "vl-ui-util": "^5.2.16"
   }
 }
