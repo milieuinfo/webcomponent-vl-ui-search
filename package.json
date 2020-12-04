@@ -38,13 +38,13 @@
   },
   "dependencies": {
     "vl-ui-button": "^5.0.6",
-    "vl-ui-core": "^6.2.3",
+    "vl-ui-core": "^7.0.0",
     "vl-ui-icon": "^5.2.0",
     "vl-ui-input-field": "^3.2.5",
     "vl-ui-select": "^4.1.5"
   },
   "peerDependencies": {
-    "vl-ui-core": "^6.0.0",
+    "vl-ui-core": "^7.0.0",
     "vl-ui-button": "^5.0.6",
     "vl-ui-icon": "^5.2.0",
     "vl-ui-input-field": "^3.2.3",
