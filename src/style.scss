@@ -11,6 +11,10 @@
 // ==========================================================================
 // Components
 // ==========================================================================
+@import "vl-ui-titles/src/scss/titles";
+@import "vl-ui-input-field/src/scss/input-field";
+@import "vl-ui-button/src/scss/button";
+@import "vl-ui-select/src/scss/select";
 @import "vl-ui-search/src/scss/search";
 
 // ==========================================================================
@@ -30,7 +34,7 @@ slot {
     
     slot[name="input"] {
         background: white;
-        border: 1px solid #cbd2da;
+        border: 1px solid $vl-input-border-color;
 
         &:focus-within {
             background: none;
