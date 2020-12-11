@@ -174,15 +174,12 @@
         should.not.exist(search.__inputSlotElement);
       });
 
-      test('input-slot krijgt de juiste klasse', (done) => {
+      test('input-slot krijgt de juiste klasse', async () => {
         const search = fixture('vl-search-met-input-slot-fixture');
         const slot = search.querySelector('[slot="input"]');
-        slot.addEventListener(VlSelect.readyEvent, () => {
-          customElements.whenDefined('vl-select').then(() => {
-            assert.isTrue(search.querySelector('[slot="input"]').classList.contains('vl-search__input'));
-            done();
-          });
-        });
+        await customElements.whenDefined('vl-select');
+        await slot.ready();
+        assert.isTrue(slot._wrapperElement.classList.contains('vl-search__input'));
       });
     });
   </script>

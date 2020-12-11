@@ -186,11 +186,12 @@ export class VlSearch extends vlElement(HTMLElement) {
     if (!slot) {
       this._shadow.querySelector('slot[name="input"]').remove();
     } else {
-      customElements.whenDefined('vl-select').then(() => {
+      customElements.whenDefined('vl-select').then(async () => {
         if (slot instanceof VlSelect) {
-          slot.addEventListener(VlSelect.readyEvent, (event) => {
-            event.target._wrapperElement.classList.add('vl-search__input');
-          });
+          await slot.ready();
+          slot._wrapperElement.classList.add('vl-search__input');
+        } else if (slot.classList.contains('js-vl-select')) {
+          slot.classList.add('vl-search__input');
         }
       });
       if (this.__inputElement) {
