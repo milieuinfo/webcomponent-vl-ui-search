@@ -34,7 +34,6 @@ slot {
     
     slot[name="input"] {
         background: white;
-        border: 1px solid $vl-input-border-color;
 
         &:focus-within {
             background: none;
@@ -42,6 +41,13 @@ slot {
         }
 
         &:focus-within + .vl-search__submit { 
+            transition: opacity .2s, transform .2s;
+            z-index: 1;
+            opacity: 1;
+            transform: translateX(0%);
+        }
+
+        + .vl-search__submit { 
             transition: opacity .2s, transform .2s;
             z-index: 1;
             opacity: 1;

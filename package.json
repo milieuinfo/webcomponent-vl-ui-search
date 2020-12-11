@@ -41,7 +41,7 @@
     "vl-ui-core": "^7.0.1",
     "vl-ui-icon": "^5.2.1",
     "vl-ui-input-field": "^3.2.6",
-    "vl-ui-select": "^4.1.5"
+    "vl-ui-select": "^4.1.6"
   },
   "peerDependencies": {
     "vl-ui-button": "^5.0.8",
