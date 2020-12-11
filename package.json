@@ -41,14 +41,14 @@
     "vl-ui-core": "^7.0.1",
     "vl-ui-icon": "^5.2.1",
     "vl-ui-input-field": "^3.2.6",
-    "vl-ui-select": "milieuinfo/webcomponent-vl-ui-select#map-search"
+    "vl-ui-select": "^4.1.7"
   },
   "peerDependencies": {
     "vl-ui-button": "^5.0.8",
     "vl-ui-core": "^7.0.0",
     "vl-ui-icon": "^5.2.1",
     "vl-ui-input-field": "^3.2.6",
-    "vl-ui-select": "milieuinfo/webcomponent-vl-ui-select#map-search"
+    "vl-ui-select": "^4.1.7"
   },
   "devDependencies": {
     "@govflanders/vl-ui-button": "^3.12.3",
