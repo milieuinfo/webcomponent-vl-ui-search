@@ -188,7 +188,7 @@ export class VlSearch extends vlElement(HTMLElement) {
     } else {
       customElements.whenDefined('vl-select').then(async () => {
         if (slot instanceof VlSelect) {
-          await slot.ready;
+          await slot.ready();
           slot._wrapperElement.classList.add('vl-search__input');
         } else if (slot.classList.contains('js-vl-select')) {
           slot.classList.add('vl-search__input');
