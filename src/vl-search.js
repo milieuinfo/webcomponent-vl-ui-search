@@ -66,6 +66,12 @@ export class VlSearch extends vlElement(HTMLElement) {
     this.__setupChangeEventTriggers();
   }
 
+  disconnectedCallback() {
+    if (this._observer) {
+      this._observer.disconnect();
+    }
+  }
+
   /**
    * Geeft de zoekterm.
    *
@@ -101,6 +107,10 @@ export class VlSearch extends vlElement(HTMLElement) {
 
   get __inputSlotElement() {
     return this._element.querySelector('slot[name="input"]');
+  }
+
+  get __inputSlot() {
+    return this.querySelector('[slot="input"]');
   }
 
   _inlineChangedCallback(oldValue, newValue) {
@@ -184,21 +194,35 @@ export class VlSearch extends vlElement(HTMLElement) {
   __processInputSlot() {
     const slot = this.querySelector('[slot="input"]');
     if (!slot) {
-      this._shadow.querySelector('slot[name="input"]').remove();
+      this.__inputSlotElement.remove();
     } else {
       customElements.whenDefined('vl-select').then(async () => {
         if (slot instanceof VlSelect) {
+          this.setAttribute('data-vl-has-input-slot', '');
           await slot.ready();
-          slot._wrapperElement.classList.add('vl-search__input');
-        } else if (slot.classList.contains('js-vl-select')) {
-          slot.classList.add('vl-search__input');
+          this.__observeInputSlot((mutations) => {
+            const isOpen = (mutation) => mutation.target.classList.contains('is-open');
+            const isFocused = (mutation) => mutation.target.classList.contains('is-focused');
+            if (mutations.find((mutation) => isOpen(mutation) || isFocused(mutation)) || slot.value) {
+              this.__inputSlotElement.classList.add('is-open');
+            } else {
+              this.__inputSlotElement.classList.remove('is-open');
+            }
+          });
+          this.append(slot._wrapperElement);
         }
       });
+
       if (this.__inputElement) {
         this.__inputElement.remove();
       }
     }
   }
+
+  __observeInputSlot(callback) {
+    this._observer = new MutationObserver(callback);
+    this._observer.observe(this.__inputSlot, {attributes: true, attributeFilter: ['class']});
+  };
 }
 
 define('vl-search', VlSearch);
