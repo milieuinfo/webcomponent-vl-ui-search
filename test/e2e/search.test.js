@@ -48,7 +48,6 @@ describe('vl-search', async () => {
     await assert.eventually.include(vlSearchPage.getSearchValues(), value);
   });
 
-
   it('als gebruiker kan ik iets selecteren uit een select die via een slot is meegegeven', async () => {
     const selectSearch = await vlSearchPage.getSlotInputSearch();
     await selectSearch.search('Frankrijk');
