@@ -198,6 +198,7 @@ export class VlSearch extends vlElement(HTMLElement) {
     } else {
       customElements.whenDefined('vl-select').then(async () => {
         if (slot instanceof VlSelect) {
+          this.setAttribute('data-vl-has-input-slot', '');
           await slot.ready();
           this.__observeInputSlot((mutations) => {
             const isOpen = (mutation) => mutation.target.classList.contains('is-open');
@@ -209,7 +210,6 @@ export class VlSearch extends vlElement(HTMLElement) {
             }
           });
           this.append(slot._wrapperElement);
-          this.setAttribute('data-vl-has-input-slot', '');
         }
       });
 
