@@ -199,11 +199,10 @@ export class VlSearch extends vlElement(HTMLElement) {
       customElements.whenDefined('vl-select').then(async () => {
         if (slot instanceof VlSelect) {
           await slot.ready();
-          slot._wrapperElement.classList.add('vl-search__input');
           this.__observeInputSlot((mutations) => {
             const isOpen = (mutation) => mutation.target.classList.contains('is-open');
             const isFocused = (mutation) => mutation.target.classList.contains('is-focused');
-            if (mutations.find((mutation) => isOpen(mutation) || isFocused(mutation))) {
+            if (mutations.find((mutation) => isOpen(mutation) || isFocused(mutation)) || slot.value) {
               this.__inputSlotElement.classList.add('is-open');
             } else {
               this.__inputSlotElement.classList.remove('is-open');
