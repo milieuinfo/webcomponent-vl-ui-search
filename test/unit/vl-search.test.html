@@ -39,7 +39,7 @@
     </template>
   </test-fixture>
 
-  <test-fixture id="vl-search-met-input-slot-fixture">
+  <test-fixture id="vl-search-input-slot-fixture">
     <template>
       <vl-search>
         <select is="vl-select" data-vl-select slot="input">
@@ -154,8 +154,18 @@
         search.__inputElement.dispatchEvent(new Event('change'));
       });
 
+      test('wanneer een input-slot aanwezig is wordt een attribuut toegevoegd', (done) => {
+        const search = fixture('vl-search-fixture');
+        const searchInputSlot = fixture('vl-search-input-slot-fixture');
+        customElements.whenDefined('vl-select').then(() => {
+          assert.isFalse(search.hasAttribute('data-vl-has-input-slot'));
+          assert.isTrue(searchInputSlot.hasAttribute('data-vl-has-input-slot'));
+          done();
+        });
+      });
+
       test('wanneer een input-slot aanwezig is wordt het standaard input-field niet getoond', () => {
-        const search = fixture('vl-search-met-input-slot-fixture');
+        const search = fixture('vl-search-input-slot-fixture');
         const container = search.shadowRoot.querySelector('.vl-search');
         should.exist(container);
         const input = container.querySelector('[is="vl-input-field"]');
@@ -163,21 +173,13 @@
       });
 
       test('wanneer een input-slot aanwezig is wordt de inhoud van dat slot getoond', () => {
-        const search = fixture('vl-search-met-input-slot-fixture');
-        assert.equal(search.__inputSlotElement.assignedElements()[0], search.querySelector('[slot="input"]'));
+        const search = fixture('vl-search-input-slot-fixture');
+        assert.equal(search.__inputSlotElement.assignedElements()[0], search.__inputSlot);
       });
 
       test('wanneer een search zonder slot wordt aangemaakt, zal het slot element in de shadow dom verwijderd worden', () => {
         const search = fixture('vl-search-fixture');
         should.not.exist(search.__inputSlotElement);
-      });
-
-      test('input-slot krijgt de juiste klasse', async () => {
-        const search = fixture('vl-search-met-input-slot-fixture');
-        const slot = search.querySelector('[slot="input"]');
-        await customElements.whenDefined('vl-select');
-        await slot.ready();
-        assert.isTrue(slot._wrapperElement.classList.contains('vl-search__input'));
       });
     });
   </script>

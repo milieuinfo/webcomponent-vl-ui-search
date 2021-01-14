@@ -27,20 +27,26 @@ slot {
     display: block;
 }
 
+:host([data-vl-inline][data-vl-has-input-slot]) {
+    .vl-search__label {
+        z-index: 1000;
+    }
+}
+
 :host([data-vl-inline]) {
     .vl-search {
         width: var(--vl-search-width, 25rem);
     }
-    
+
     slot[name="input"] {
         box-sizing: content-box;
+    }
 
-        + .vl-search__submit {
-            transition: opacity .2s, transform .2s;
-            z-index: 1000;
-            opacity: 1;
-            transform: translateX(0%);
-        }
+    slot[name="input"].is-open + .vl-search__submit {
+        transition: opacity .2s, transform .2s;
+        z-index: 1000;
+        opacity: 1;
+        transform: translateX(0%);
     }
 
     ::slotted(.js-vl-select) {
