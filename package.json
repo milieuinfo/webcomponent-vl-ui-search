@@ -37,11 +37,11 @@
     "demo": "http-server"
   },
   "dependencies": {
-    "vl-ui-button": "^5.0.9",
+    "vl-ui-button": "^5.0.10",
     "vl-ui-core": "^7.1.1",
-    "vl-ui-icon": "^5.2.1",
-    "vl-ui-input-field": "^3.2.6",
-    "vl-ui-select": "^4.1.7"
+    "vl-ui-icon": "^5.2.2",
+    "vl-ui-input-field": "^3.2.8",
+    "vl-ui-select": "^4.2.1"
   },
   "peerDependencies": {
     "vl-ui-button": "^5.0.9",
