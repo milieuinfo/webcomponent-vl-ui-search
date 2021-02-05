@@ -24,10 +24,10 @@ class VlSearchPage extends Page {
   }
 
   async getSlotInputSearch() {
-    const select = await this.driver.findElements(By.css('#search-block-slot-input select'));
+    const select = await this.driver.findElement(By.css('#search-block-slot-input select'));
     if (select) {
       const {VlSelect} = require('vl-ui-select').Test;
-      return new VlSelect(this.driver, '#search-block-slot-input select');
+      return new VlSelect(this.driver, select);
     }
   }
 
