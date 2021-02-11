@@ -1,7 +1,6 @@
 const VlSearch = require('../components/vl-search');
 const {Page, Config} = require('vl-ui-core').Test;
 const {By} = require('vl-ui-core').Test.Setup;
-const {VlSelect} = require('vl-ui-select').Test;
 
 class VlSearchPage extends Page {
   async getInlineSearch() {
@@ -27,6 +26,7 @@ class VlSearchPage extends Page {
   async getSlotInputSearch() {
     const select = await this.driver.findElement(By.css('#search-block-slot-input select'));
     if (select) {
+      const {VlSelect} = require('vl-ui-select').Test;
       return new VlSelect(this.driver, select);
     }
   }
