@@ -4,7 +4,7 @@ const VlSearchPage = require('./pages/vl-search.page');
 describe('vl-search', async () => {
   let vlSearchPage;
 
-  before(() => {
+  beforeEach(() => {
     vlSearchPage = new VlSearchPage(getDriver());
     return vlSearchPage.load();
   });
