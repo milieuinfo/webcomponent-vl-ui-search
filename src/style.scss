@@ -22,7 +22,7 @@
 // ==========================================================================
 @import "vl-ui-util/src/scss/util";
 
-slot {
+slot[name="input"] {
     @extend .vl-search__input;
     display: block;
 }
