@@ -9,6 +9,10 @@ describe('vl-search', async () => {
     return vlSearchPage.load();
   });
 
+  it('WCAG', async () => {
+    await assert.eventually.isFalse(vlSearchPage.hasWcagIssues());
+  });
+
   it('als gebruiker kan ik het verschil zien tussen een inline en een block search', async () => {
     const inlineSearch = await vlSearchPage.getInlineSearch();
     const blockSearch = await vlSearchPage.getBlockSearch();
