@@ -1,6 +1,6 @@
 {
   "name": "vl-ui-search",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "Gebruik de search component zodat een gebruiker zoekcriteria kan ingeven om specifieke content te vinden.",
   "author": "DIDM",
   "license": "MIT",
@@ -37,11 +37,11 @@
     "demo": "http-server"
   },
   "dependencies": {
-    "vl-ui-button": "^5.0.10",
+    "vl-ui-button": "^5.0.11",
     "vl-ui-core": "^7.2.4",
-    "vl-ui-icon": "^5.2.2",
-    "vl-ui-input-field": "^3.2.11",
-    "vl-ui-select": "^4.3.1"
+    "vl-ui-icon": "^5.2.3",
+    "vl-ui-input-field": "^3.2.12",
+    "vl-ui-select": "^4.3.2"
   },
   "peerDependencies": {
     "vl-ui-button": "^5.0.9",
