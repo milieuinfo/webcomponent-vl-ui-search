@@ -53,7 +53,7 @@
   "devDependencies": {
     "@govflanders/vl-ui-button": "^3.12.24",
     "@govflanders/vl-ui-core": "^4.1.24",
-    "@govflanders/vl-ui-input-field": "^3.12.24",
+    "@govflanders/vl-ui-input-field": "^11.0.0",
     "@govflanders/vl-ui-search": "^3.12.24",
     "@govflanders/vl-ui-select": "^3.12.24",
     "@govflanders/vl-ui-titles": "^3.12.17",
