@@ -51,7 +51,7 @@
     "vl-ui-select": "^4.1.7"
   },
   "devDependencies": {
-    "@govflanders/vl-ui-button": "^3.12.24",
+    "@govflanders/vl-ui-button": "^11.0.0",
     "@govflanders/vl-ui-core": "^4.1.24",
     "@govflanders/vl-ui-input-field": "^3.12.24",
     "@govflanders/vl-ui-search": "^3.12.24",
